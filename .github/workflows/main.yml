@@ -27,4 +27,4 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: thuen/zeebe-dev-container
-          tags: latest,$TAG_NAME
+          tags: latest,${{ TAG_NAME }}
