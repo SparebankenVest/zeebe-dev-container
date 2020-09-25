@@ -29,5 +29,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: thuen/zeebe-dev-container:${{steps.vars.outputs.tag_name_step}}
+          repository: thuen/zeebe-dev-container:${{steps.vars.outputs.tag_name}}
           tag_with_ref: true
