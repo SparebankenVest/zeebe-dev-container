@@ -16,17 +16,17 @@ jobs:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
-      - name: Login to DockerHub
-        uses: docker/login-action@v1 
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Get baseiamge version
+        run: echo ::set-output name=tag_name::$(awk -F ":" 'NR==1{print $2}' ../Dockerfile)
+        id: tag_name_step
+      - name: tests
+        run: pwd && ls -l  
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Check out the repo
-        uses: actions/checkout@v2
-      - run: echo ::set-output name=tag_name::$(awk -F ":" 'NR==1{print $2}' Dockerfile)
-        id: tag_name_step
-      - name: Push to Docker Hub
-        uses: docker/build-push-action@v2
-        with:
-          push: true 
-          tags: thuen/zeebe-dev-container:latest
+          repository: thuen/zeebe-dev-container
+          tags: latest
