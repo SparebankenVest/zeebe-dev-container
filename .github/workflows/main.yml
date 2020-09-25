@@ -30,4 +30,5 @@ jobs:
       - name: Push to Docker Hub
         uses: docker/build-push-action@v2
         with:
-          tags: thuen/zeebe-dev-container:${{ steps.tag_name_step.tag_name }},thuen/zeebe-dev-container:latest
+          push: true 
+          tags: thuen/zeebe-dev-container:latest
