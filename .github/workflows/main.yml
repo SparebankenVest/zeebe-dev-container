@@ -19,7 +19,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Get baseiamge version
-        run: echo ::set-env name=TAG_NAME::$(awk -F ":" 'NR==1{print $2}' ../Dockerfile)
+        run: echo ::set-env name=TAG_NAME::$(awk -F ":" 'NR==1{print $2}' Dockerfile)
         id: tag_name_step
       - name: Push to Docker Hub
         uses: docker/build-push-action@v1
