@@ -22,7 +22,7 @@ jobs:
         run: echo ::set-output name=tag_name::$(awk -F ":" 'NR==1{print $2}' Dockerfile)
         id: tag_name_step
       - name: test
-        run: echo $TAG_NAME
+        run: echo ${{ steps.tag_name_step.tag_name }}
       - name: Push to Docker Hub
         uses: docker/build-push-action@v1
         with:
