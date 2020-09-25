@@ -16,6 +16,9 @@ jobs:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
+      - name: Get the version
+        id: vars
+        run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Push to Docker Hub
@@ -23,5 +26,5 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: thuen/zeebe-dev-container
+          repository: thuen/zeebe-dev-container:${{steps.vars.outputs.tag}}
           tag_with_ref: true
