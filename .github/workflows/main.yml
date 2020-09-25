@@ -22,7 +22,7 @@ jobs:
         run: echo ::set-output name=tag_name::$(awk -F ":" 'NR==1{print $2}' Dockerfile)
         id: tag_name_step
       - name: tests
-        run: pwd && ls -l  
+        run: echo ${{ steps.tag_name_step.tag_name }}
       - name: Push to Docker Hub
         uses: docker/build-push-action@v1
         with:
@@ -30,4 +30,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: thuen/zeebe-dev-container
           tag_with_ref: true
-          tags: thuen/zeebe-dev-container:${{ steps.tag_name_step.tag_name }} 
+          tags: thuen/zeebe-dev-container:${{ steps.tag_name_step.tag_name }},thuen/zeebe-dev-container:latest
