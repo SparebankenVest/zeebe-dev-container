@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get baseiamge version
-        run: echo ::set-output name=tag_name::$(awk -F ":" 'NR==1{print $2}' Dockerfile)
+        run: echo ::set-output name=tag_name::$(awk -F ":" 'NR==1{print $2}' ../Dockerfile)
         id: tag_name_step
       - name: Check out the repo
         uses: actions/checkout@v2
