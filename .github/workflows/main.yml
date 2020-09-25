@@ -19,8 +19,8 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Get baseiamge version
-        run: echo ::set-output name=tag_name::$(awk -F ":" 'NR==1{print $2}' Dockerfile)
         id: tag_name_step
+        run: echo ::set-output name=tag_name::$(awk -F ":" 'NR==1{print $2}' Dockerfile)
       - name: test
         run: echo ${{ steps.tag_name_step.tag_name }}
       - name: Push to Docker Hub
