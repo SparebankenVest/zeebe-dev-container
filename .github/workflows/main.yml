@@ -19,6 +19,8 @@ jobs:
       - name: Get baseiamge version
         run: echo ::set-output name=tag_name::$(awk -F ":" 'NR==1{print $2}' ../Dockerfile)
         id: tag_name_step
+      - name: tests
+        run: pwd && ls -l  
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Push to Docker Hub
