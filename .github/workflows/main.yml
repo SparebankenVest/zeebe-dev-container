@@ -21,10 +21,12 @@ jobs:
       - name: Get baseiamge version
         run: echo ::set-env name=TAG_NAME::$(awk -F ":" 'NR==1{print $2}' Dockerfile)
         id: tag_name_step
+      - name: test
+        run: echo $TAG_NAME
       - name: Push to Docker Hub
         uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: thuen/zeebe-dev-container
-          tags: latest,${{ TAG_NAME }}
+          tags: latest,
