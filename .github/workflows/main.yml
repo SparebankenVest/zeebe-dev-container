@@ -22,7 +22,7 @@ jobs:
         id: vars
         run: | 
             echo 'TAG_NAME<<EOF' >> $GITHUB_ENV
-            $(awk -F ":" 'NR==1{print $2}' Dockerfile) >> $GITHUB_ENV
+            awk -F ":" 'NR==1{print $2}' Dockerfile >> $GITHUB_ENV
             echo 'EOF' >> $GITHUB_ENV
       - name: test
         run: echo ${{ env.TAG_NAME }}
