@@ -15,18 +15,19 @@ jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - base-versiom: $(awk -F ":" 'NR==1{print $2}' Dockerfile)
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-      - name: Get baseiamge version
-        id: vars
-        run: echo ::set-env name=TAG_NAME::$(awk -F ":" 'NR==1{print $2}' Dockerfile)
       - name: test
-        run: echo ${{ env.TAG_NAME }}
+        run: echo ${{ matrix.base-version }}
       - name: Push to Docker Hub
         uses: docker/build-push-action@v1
         with:
           username: ${{ secrets.SPVEST_DOCKERHUB_USERNAME }}
           password: ${{ secrets.SPVEST_DOCKERHUB_TOKEN }}
           repository: spvest/zeebe-dev-container
-          tags: latest,${{ env.TAG_NAME }}
+          tags: latest,${{ matrix.base-version }}
