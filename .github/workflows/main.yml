@@ -22,12 +22,16 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
+      - name: Get baseiamge version
+        id: vars
+        run: | 
+            echo 'TAG_NAME<<EOF' >> $GITHUB_ENV
+            awk -F ":" 'NR==1{print $2}' Dockerfile >> $GITHUB_ENV
+            echo 'EOF' >> $GITHUB_ENV
       - name: test
         run: echo ${{ matrix.base-version }}
       - name: Push to Docker Hub
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2
         with:
-          username: ${{ secrets.SPVEST_DOCKERHUB_USERNAME }}
-          password: ${{ secrets.SPVEST_DOCKERHUB_TOKEN }}
-          repository: spvest/zeebe-dev-container
-          tags: latest,${{ matrix.base-version }}
+          tags: latest,${{ env.TAG_NAME }}
+
