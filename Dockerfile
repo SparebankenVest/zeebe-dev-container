@@ -1,2 +1,2 @@
-FROM camunda/zeebe:0.26.3
+FROM camunda/zeebe:1.0.1
 COPY application.yaml /usr/local/zeebe/config/application.yaml
